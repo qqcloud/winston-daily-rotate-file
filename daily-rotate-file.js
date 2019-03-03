@@ -141,6 +141,8 @@ if (semver.major(winston.version) === 2) {
 
         this.logStream.write(info[MESSAGE] + this.options.eol);
         this.emit('logged', info);
+        // 修复打开文件描述符过多bug，每次打印日志后，关闭文件描述符
+        this.emit('end');
         callback(null, true);
     };
 }
